@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkdo - Manage and Search Your Pending Tasks in Clicks!</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="wrap">
+        <section class="heading">
+          <p class="title">Checkdo</p>
+          <p class="subtitle">
+            Manage and Search Your Pending Tasks in Clicks!
+          </p>
+        </section>
+
+        <section class="task-manager">
+          <div class="search-box">
+            <form class="search">
+              <input
+                type="text"
+                name="task"
+                placeholder="search task"
+                autocomplete="off"
+              />
+              <i class="bi bi-x-circle reset"></i>
+            </form>
+          </div>
+          <div class="task-box">
+            <ul class="tasks">
+              <li>
+                <span>Make bed</span><i class="bi bi-trash-fill delete"></i>
+              </li>
+              <li>
+                <span>Cook Breakfast</span
+                ><i class="bi bi-trash-fill delete"></i>
+              </li>
+              <li>
+                <span>Do Assignment</span
+                ><i class="bi bi-trash-fill delete"></i>
+              </li>
+            </ul>
+            <form class="add">
+              <input
+                type="text"
+                name="task"
+                placeholder="add task"
+                autocomplete="off"
+              />
+              <input type="submit" value="Add" />
+            </form>
+          </div>
+          <div class="message">
+            <span>You have 3 pending tasks.</span>
+            <button class="clear">Clear All</button>
+          </div>
+        </section>
+        <div class="footer">
+          <p>Made with Vanilla JS in 2023</p>
+        </div>
+      </div>
+    </main>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
