@@ -32,11 +32,10 @@ taskList.addEventListener("click", (e) => {
 
 // clear all
 clearAll.addEventListener("click", () => {
-  const taskItems = document.querySelectorAll("li");
-  taskItems.forEach((item) => {
-    item.remove();
-    updateMessage();
+  Array.from(taskList.children).forEach((child) => {
+    child.remove();
   });
+  updateMessage();
 });
 
 // update tasks
