@@ -15,6 +15,10 @@
   list-style: none;
 }
 
+.hide {
+  display: none !important;
+}
+
 .wrap {
   background-color: #6644aa;
   height: 100vh;

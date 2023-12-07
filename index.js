@@ -2,6 +2,8 @@ const addForm = document.querySelector("form.add");
 const taskList = document.querySelector("ul.tasks");
 const clearAll = document.querySelector(".clear");
 const message = document.querySelector(".message span");
+const searchForm = document.querySelector(".search");
+const resetSearch = document.querySelector(".reset");
 
 //add task
 addForm.addEventListener("submit", (e) => {
@@ -45,4 +47,34 @@ function updateMessage() {
   message.textContent = `You have ${tasksLength} pending tasks.`;
 }
 
-console.log(updateMessage());
+// search task
+function filterTask(searchTerm) {
+  Array.from(taskList.children)
+    .filter((item) => {
+      return !item.textContent.includes(searchTerm);
+    })
+    .forEach((item) => {
+      item.classList.add("hide");
+    });
+
+  Array.from(taskList.children)
+    .filter((item) => {
+      return item.textContent.includes(searchTerm);
+    })
+    .forEach((item) => {
+      item.classList.remove("hide");
+    });
+}
+
+searchForm.addEventListener("keyup", (e) => {
+  const searchTerm = searchForm.task.value.trim();
+  console.log(searchTerm);
+  filterTask(searchTerm);
+});
+
+// reset search
+resetSearch.addEventListener("click", (e) => {
+  searchForm.reset();
+  const searchTerm = searchForm.task.value.trim();
+  filterTask(searchTerm);
+});
