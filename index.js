@@ -1,6 +1,7 @@
 const addForm = document.querySelector("form.add");
 const taskList = document.querySelector("ul.tasks");
 const clearAll = document.querySelector(".clear");
+const message = document.querySelector(".message span");
 
 //add task
 addForm.addEventListener("submit", (e) => {
@@ -10,6 +11,7 @@ addForm.addEventListener("submit", (e) => {
     taskList.innerHTML += createTemplate(value);
   }
   addForm.reset();
+  updateMessage();
 });
 
 const createTemplate = (value) => {
@@ -24,13 +26,24 @@ const createTemplate = (value) => {
 taskList.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
     e.target.parentElement.remove();
+    updateMessage();
   }
 });
 
 // clear all
-clearAll.addEventListener("click", (e) => {
+clearAll.addEventListener("click", () => {
   const taskItems = document.querySelectorAll("li");
   taskItems.forEach((item) => {
     item.remove();
+    updateMessage();
   });
 });
+
+// update tasks
+function updateMessage() {
+  const taskItems = document.querySelectorAll("li");
+  const tasksLength = taskItems.length;
+  message.textContent = `You have ${tasksLength} pending tasks.`;
+}
+
+console.log(updateMessage());
