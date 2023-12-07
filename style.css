@@ -96,6 +96,7 @@
   background-color: #d82148;
   border-radius: 0px 2px 2px 0px;
   padding: 10px;
+  cursor: pointer;
 }
 
 .task-box .add {
