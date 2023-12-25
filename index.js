@@ -1,80 +1,80 @@
-const addForm = document.querySelector("form.add");
-const taskList = document.querySelector("ul.tasks");
-const clearAll = document.querySelector(".clear");
+const addForm = document.querySelector(".add");
+const tasks = document.querySelector(".tasks");
 const message = document.querySelector(".message span");
+const clearAllTasks = document.querySelector(".clear");
 const searchForm = document.querySelector(".search");
-const resetSearch = document.querySelector(".reset");
 
-//add task
+//add items
 addForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  let value = addForm.task.value.trim();
+  const value = addForm.task.value.trim();
   if (value.length) {
-    taskList.innerHTML += createTemplate(value);
+    createTemplate(value);
   }
-  addForm.reset();
-  updateMessage();
 });
 
 const createTemplate = (value) => {
-  return `
-      <li>
-        <span>${value}</span>
-        <i class="bi bi-trash-fill delete"></i>
-      </li>`;
+  tasks.innerHTML += `<li>
+  <span>${value}</span><i class="bi bi-trash-fill delete"></i>
+  </li>`;
+  addForm.reset();
+  updateTaskLength();
 };
 
-//delete task
-taskList.addEventListener("click", (e) => {
+//delete items
+tasks.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
     e.target.parentElement.remove();
-    updateMessage();
   }
+  updateTaskLength();
 });
 
-// clear all
-clearAll.addEventListener("click", () => {
-  Array.from(taskList.children).forEach((child) => {
-    child.remove();
+// update message
+const updateTaskLength = () => {
+  taskLength = tasks.children.length;
+  message.textContent = `You have ${taskLength} pending tasks.`;
+};
+
+//clear all
+clearAllTasks.addEventListener("click", (e) => {
+  let taskList = Array.from(tasks.children);
+  console.log(taskList);
+  taskList.forEach((list) => {
+    list.remove();
   });
-  updateMessage();
+  updateTaskLength();
 });
 
-// update tasks
-function updateMessage() {
-  const taskItems = document.querySelectorAll("li");
-  const tasksLength = taskItems.length;
-  message.textContent = `You have ${tasksLength} pending tasks.`;
-}
-
-// search task
-function filterTask(searchTerm) {
-  Array.from(taskList.children)
-    .filter((item) => {
-      return !item.textContent.includes(searchTerm);
+//search task
+const filterSearch = (searchTerm) => {
+  const taskList = tasks.children;
+  Array.from(taskList)
+    .filter((task) => {
+      return !task.textContent.toLowerCase().includes(searchTerm);
     })
-    .forEach((item) => {
-      item.classList.add("hide");
+    .forEach((task) => {
+      task.classList.add("hide");
     });
 
-  Array.from(taskList.children)
-    .filter((item) => {
-      return item.textContent.includes(searchTerm);
+  Array.from(taskList)
+    .filter((task) => {
+      return task.textContent.toLowerCase().includes(searchTerm);
     })
-    .forEach((item) => {
-      item.classList.remove("hide");
+    .forEach((task) => {
+      task.classList.remove("hide");
     });
-}
+};
 
 searchForm.addEventListener("keyup", (e) => {
-  const searchTerm = searchForm.task.value.trim();
-  console.log(searchTerm);
-  filterTask(searchTerm);
+  let searchTerm = searchForm.task.value.trim().toLowerCase();
+  filterSearch(searchTerm);
 });
 
-// reset search
-resetSearch.addEventListener("click", (e) => {
-  searchForm.reset();
+//resetSearch
+searchForm.addEventListener("click", (e) => {
   const searchTerm = searchForm.task.value.trim();
-  filterTask(searchTerm);
+  if (e.target.classList.contains("reset")) {
+    searchForm.reset();
+    filterSearch(searchTerm);
+  }
 });
